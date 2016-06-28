@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>Cards</title>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,100,700,900">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/angular/angular.min.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6EMqagqmyPVSM0beYT6ps_5qBKwCnqJk",
+    authDomain: "project-390765910082515245.firebaseapp.com",
+    databaseURL: "https://project-390765910082515245.firebaseio.com",
+    storageBucket: "project-390765910082515245.appspot.com",
+  };
+  firebase.initializeApp(config);
+  </script>
+</head>
+
+
+<body ng-app="cards" ng-controller="cardsCtrl" style="background-color:lightgrey;">
+  <div class="header">
+    <h1 style="font-size:250%" style="background-color:lightgrey;">Company Transaction Details</h1>
+  </div>
+
+  <div>
+    <form class="form" >
+      Company Name:<br>
+      <select style="width: 200px;" ng-model="companyId">
+        <option  ng-repeat="company in allCompany" value="{{company.companyId}}">{{company.companyName}}
+        </option>
+      </select><br>
+
+      <button type="submit" ng-click="creditDetails(companyId)">Credit Details</button><br>
+
+      Total Credits:<br>
+      {{sumCredit}}<br><br>
+      
+      <button type="submit" ng-click="debitDetails(companyId)">Debit Details</button><br>
+      Total Debit:<br>
+      {{sumDebit}}<br>
+      
+      Total Used:<br>
+      {{sumUsed}}<br><br>
+
+      <button type="submit" ng-click="VendorInfo(companyId)">Vendor Details</button>
+      <button type="submit" ng-click="dateInfo(companyId)">Date Details</button>
+
+
+
+
+        <!-- Impression Credited:<br>
+        <input type="text" ng-model="data.impressionCredited"><br>
+        
+        Validity Date:<br>
+        <input type="date" ng-model="data.validityDate"><br> -->
+
+        <!-- <button type="submit" ng-click="submit(companyId)">Submit</button> -->
+      </form>
+    </div>
+
+    <div >
+      <form class="vendorDetails">
+        <table>
+          <tbody>
+            <tr>
+              <td>Vendor Name</td>
+              <td ng-repeat="vendor in vendorobj  track by $index">{{vendor.vendorname}}</td>  
+            </tr>
+            <tr>
+              <td>Impression Used</td>
+              <td ng-repeat="vendor in vendorobj  track by $index">{{vendor.used}}</td>  
+            </tr>
+            <tr>
+              <td>Impression Assigned</td>  
+              <td ng-repeat="vendor in vendorobj  track by $index">{{vendor.assigned}}</td><br><br>  
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+    <div >
+      <form class="dateDetails">
+        <table>
+          <tbody>
+            <tr>
+              <td>Assign Date</td>
+              <td ng-repeat="current in currentobj  track by $index">{{current.date}}</td>  
+            </tr>
+            <tr>
+              <td>Impression Used</td>
+              <td ng-repeat="current in currentobj  track by $index">{{current.used}}</td>  
+            </tr>
+            <tr>
+              <td>Impression Assigned</td>  
+              <td ng-repeat="current in currentobj  track by $index">{{current.assigned}}</td>  
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+  </body>
